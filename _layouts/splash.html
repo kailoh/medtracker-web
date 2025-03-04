@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {%- include head.html -%}
+
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@rive-app/canvas"></script>
+    <script>
+        // Initialize Rive animations
+        function initRive() {
+            try {
+                // Initialize cloud animation
+                const cloudAnimation = new rive.Rive({
+                    src: '{{"/assets/animations/clouds.riv" | relative_url }}',
+                    canvas: document.getElementById('cloud-animation'),
+                    artboard: 'web',
+                    autoplay: true,
+                    layout: new rive.Layout({
+                        fit: rive.Fit.Cover,
+                    }),
+                    onLoad: () => {
+                        cloudAnimation.resizeDrawingSurfaceToCanvas();
+                    },
+                });
+
+                // Initialize daruma animation
+                const darumaAnimation = new rive.Rive({
+                    src: '{{"/assets/animations/daruma.riv" | relative_url }}',
+                    canvas: document.getElementById('daruma-animation'),
+                    artboard: 'web',
+                    autoplay: true,
+                    stateMachines: 'State Machine 2',
+                    layout: new rive.Layout({
+                        fit: rive.Fit.Contain,
+                    }),
+                    onLoad: () => {
+                        darumaAnimation.resizeDrawingSurfaceToCanvas();
+                        // Add click event listener to the canvas
+
+                        const inputs = darumaAnimation.stateMachineInputs('State Machine 2');
+                        const onTapTrigger = inputs.find(i => i.name == "onTap");
+                        const isTakenTrigger = inputs.find(i => i.name == "isTaken");
+
+                        document.getElementById('daruma-animation').addEventListener('click', () => {
+                            onTapTrigger.fire();
+                        });
+
+                        // Store the trigger in a global variable so it can be accessed by the typing function
+                        window.isTakenTrigger = isTakenTrigger;
+                    },
+                });
+
+                // Add error handling
+                cloudAnimation.on('error', (err) => {
+                    console.error('Cloud Rive error:', err);
+                });
+
+                darumaAnimation.on('error', (err) => {
+                    console.error('Daruma Rive error:', err);
+                });
+
+                // Log when animations are loaded
+                cloudAnimation.on('load', () => {
+                    console.log('Cloud animation loaded successfully');
+                });
+
+                darumaAnimation.on('load', () => {
+                    console.log('Daruma animation loaded successfully');
+                });
+
+                window.addEventListener("resize", () => {
+                    cloudAnimation.resizeDrawingSurfaceToCanvas();
+                    darumaAnimation.resizeDrawingSurfaceToCanvas();
+                });
+            } catch (error) {
+                console.error('Failed to initialize Rive:', error);
+            }
+        }
+
+        // Wait for the page to be fully loaded
+        window.addEventListener('load', initRive);
+    </script>
+    <style>
+        @media (max-width: 768px) {
+            div[style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+            }
+            div[style*="width: 1000px"] {
+                width: 100% !important;
+                top: 350px !important;
+            }
+            img[style*="right: 90px"] {
+                right: -30px !important;
+            }
+            div[style*="background-color: #73C0F5"] {
+                height: 600px !important;
+            }
+        }
+    </style>
+</head>
+
+  <body ontouchstart="" style="overflow-x: hidden;">
+
+    <div style="background-color: #73C0F5; height: 400px; position: relative;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; z-index: 2; margin: 0; padding: 0;">
+            <canvas id="cloud-animation" style="width: 100%; height: 290px;overflow: hidden; margin: 0; padding: 0;"></canvas>
+        </div>
+        <div style="width: 100%; max-width: 100%; padding: 20px; position: relative; z-index: 31;">
+            <img src="{{"/assets/images/header-logo.svg" | relative_url }}" alt="Logo" style="height: 40px; width: auto;">
+        </div>
+
+        <div style="position: absolute; top: 290px; left: 50%; transform: translate(-50%, -50%); z-index: 4; text-align: center; width: 300px;">
+            <h1 class="splash-text" style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; -webkit-text-stroke: 10px black; color: white; paint-order: stroke fill;">I'll <span id="typing-text" style="display: inline-block; font-family: 'M PLUS Rounded 1c', monospace, sans-serif; font-weight: 900; text-align: center; background-color: #CCEAFF; padding: 5px 15px; border-radius: 25px; margin: 0 5px; width: 120px; position: relative;"></span> you to take your meds.</h1>
+            <a href="https://apps.apple.com/app/apple-store/id6444140899?pt=117273943&ct=web&mt=8?itsct=apps_box_badge&amp;itscg=30200"
+            style="display: inline-block; overflow: hidden; border-radius: 13px; width: 193px; height: 64px; position: relative; z-index: 10;">
+            <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1667433600"
+                alt="Download on the App Store" style="border-radius: 13px; width: 193px; height: 64px;"></a>
+        </div>
+    </div>
+    <div style="width: 100%; height: 120px; background-color: #FEB862; position: relative;"></div>
+    <div style="position: absolute; width: 1000px; height: 400px; left: 50%; transform: translateX(-50%); z-index: 2; top: 150px;">
+        <img src="{{"/assets/images/tree.svg" | relative_url }}" alt="Tree" style="position: absolute; left: -100px; z-index: 2; height: 300px; width: auto;">
+        <div style="position: absolute; left: 0px; top: 0px; z-index: 3; height: 400px; width: 400px;">
+            <canvas id="daruma-animation" style="width: 100%; height: 100%;"></canvas>
+        </div>
+        <img src="{{"/assets/images/tree.svg" | relative_url }}" alt="Tree" style="position: absolute; right: 90px; top: 50px; z-index: 2; height: 250px; width: auto;">
+    </div>
+
+    <!-- New Grid Section -->
+    <div style="background-color: #FFC98F; width: 100%; padding-top: 40px; padding-bottom: 40px;">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; padding-left: 10px; padding-right: 10px">
+            <!-- Grid Item 1 -->
+            <div style="padding: 20px;">
+                <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800;">
+                    <img src="{{"/assets/images/face.svg" | relative_url }}" alt="Icon 1" style="width: 30px; height: 30px;">
+                    <span>A Friendly Companion</span>
+                </h3>
+                <p style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 500;">A cute mascot that reminds you to take your pills on time. But watch out — he gets increasingly annoying if you miss a dose.</p>
+            </div>
+
+            <!-- Grid Item 2 -->
+            <div style="padding: 20px;">
+                <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800;">
+                    <img src="{{"/assets/images/bell.svg" | relative_url }}" alt="Icon 2" style="width: 30px; height: 30px;">
+                    <span>Timely Reminders</span>
+                </h3>
+                <p style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 500;">Receive notifications and even automated phone calls when it's time to take your meds (all reminders optional, and easily enabled/disabled).</p>
+            </div>
+
+            <!-- Grid Item 3 -->
+            <div style="padding: 20px;">
+                <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800;">
+                    <img src="{{"/assets/images/fire.png" | relative_url }}" alt="Icon 3" style="width: 30px; height: 30px;">
+                    <span>Build a Streak</span>
+                </h3>
+                <p style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 500;">It's important to remember to take your meds and supplements. Game mechanics like streaks and stars help you make it a habit.</p>
+            </div>
+
+            <!-- Grid Item 4 -->
+            <div style="padding: 20px;">
+                <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800;">
+                    <img src="{{"/assets/images/shield.svg" | relative_url }}" alt="Icon 4" style="width: 30px; height: 30px;">
+                    <span>Privacy-first</span>
+                </h3>
+                <p style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 500;">Your data stays on your device, and is not shared with anyone (if you're feeling extra paranoid, use our built-in anonymous mode).</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const words = ['pester', 'annoy', 'bother', 'nudge', 'chase', 'remind'];
+        let currentWordIndex = 0;
+        let currentCharIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 100; // milliseconds per character
+        const pauseDuration = 1500; // pause after word is complete
+        let timeoutId = null;
+
+        function type() {
+            const currentWord = words[currentWordIndex];
+            const typingElement = document.getElementById('typing-text');
+            const containerWidth = typingElement.offsetWidth;
+            const textWidth = getTextWidth(currentWord, typingElement.style.font);
+            const padding = (containerWidth - textWidth) / 2;
+
+            if (isDeleting) {
+                if (currentCharIndex === 1) {
+                    typingElement.textContent = '\u00A0'; // non-breaking space
+                } else {
+                    const currentText = currentWord.substring(0, currentCharIndex - 1);
+                    const spaces = ' '.repeat(currentWord.length - currentText.length);
+                    typingElement.textContent = currentText + spaces;
+                }
+                currentCharIndex--;
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(type, typingSpeed);
+            } else {
+                const currentText = currentWord.substring(0, currentCharIndex + 1);
+                const spaces = ' '.repeat(currentWord.length - currentText.length);
+                typingElement.textContent = currentText + spaces;
+                currentCharIndex++;
+                if (currentCharIndex === currentWord.length) {
+                    isDeleting = true;
+                    clearTimeout(timeoutId);
+                    timeoutId = setTimeout(type, pauseDuration);
+                    // Fire isTakenTrigger when word is fully typed
+                    if (window.isTakenTrigger) {
+                        window.isTakenTrigger.fire();
+                    }
+                } else {
+                    clearTimeout(timeoutId);
+                    timeoutId = setTimeout(type, typingSpeed);
+                }
+            }
+
+            if (isDeleting && currentCharIndex === 0) {
+                isDeleting = false;
+                currentWordIndex = (currentWordIndex + 1) % words.length;
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(type, typingSpeed);
+            }
+        }
+
+        // Helper function to measure text width
+        function getTextWidth(text, font) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            context.font = font;
+            return context.measureText(text).width;
+        }
+
+        // Start the typing animation when the page loads
+        window.addEventListener('load', () => {
+            document.getElementById('typing-text').textContent = '\u00A0'; // Initialize with non-breaking space
+            type();
+        });
+    </script>
+
+    
+   
+    
+   
+    
+{%- include footer.html -%}
+</div>
+  </body>
+
+</html>
+
+

@@ -1,0 +1,14 @@
+<footer style="background-color: #E89938;">
+
+<div style="text-align: left; padding: 30px 20px; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 700; max-width: 1200px; margin: 0 auto;">
+    {% for page in site.pages %}
+        {% if page.title %}
+            <a href="{{ page.url | relative_url }}" style="margin: 0 10px; color: #333; text-decoration: none;">{{ page.title }}</a>
+        {% endif %}
+    {% endfor %}
+    <a href="https://apps.apple.com/app/apple-store/id6444140899?pt=117273943&ct=web&mt=8" style="margin: 0 10px; color: #333; text-decoration: none;">Download App</a>
+
+</div>
+
+
+</footer>
