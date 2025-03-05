@@ -6,7 +6,7 @@ show_in_header: false
 
 ---
 
-**tl;dr - I do not do any sketchy stuff with your data. I do not collect the names of the medications that you add. I only collect analytics data to be able to figure out where users get stuck and allow me to work on improving the app further. In addition, there are also ads in the app to support the cost of running it (there's an option to remove ads).**
+**tl;dr - I do not do any sketchy stuff with your data. I do not collect the names of the medications that you add. I only collect analytics data to be able to figure out where users get stuck and allow me to work on improving the app further.**
 
 Now, here’s the long version:
 
