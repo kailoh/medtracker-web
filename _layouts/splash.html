@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<html>
 
   {%- include head.html -%}
 
   <head>
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;800;900&display=swap" rel="stylesheet">
+    
     <script src="https://unpkg.com/@rive-app/canvas"></script>
     <script>
         // Initialize Rive animations
@@ -102,8 +102,8 @@
             img[style*="right: 90px"] {
                 right: -30px !important;
             }
-            div[style*="background-color: #73C0F5"] {
-                height: 600px !important;
+            #main-splash {
+                height: 520px !important;
             }
         }
     </style>
@@ -111,15 +111,15 @@
 
   <body ontouchstart="" style="overflow-x: hidden;">
 
-    <div style="background-color: #73C0F5; height: 400px; position: relative;">
-        <div style="position: absolute; top: 0; left: 0; width: 100%; z-index: 2; margin: 0; padding: 0;">
+    {%- include header.html -%}
+
+    <div id="main-splash" style="background-color: #73C0F5; height: 320px; position: relative;">
+        <div style="position: absolute; top: -50px; left: 0; width: 100%; z-index: 2; margin: 0; padding: 0;">
             <canvas id="cloud-animation" style="width: 100%; height: 290px;overflow: hidden; margin: 0; padding: 0;"></canvas>
         </div>
-        <div style="width: 100%; max-width: 100%; padding: 20px; position: relative; z-index: 31;">
-            <img src="{{"/assets/images/header-logo.png" | relative_url }}" alt="Logo" style="height: 40px; width: auto;">
-        </div>
 
-        <div style="position: absolute; top: 290px; left: 50%; transform: translate(-50%, -50%); z-index: 4; text-align: center; width: 300px;">
+
+        <div style="position: absolute; top: 210px; left: 50%; transform: translate(-50%, -50%); z-index: 4; text-align: center; width: 300px;">
             <h1 class="splash-text" style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; -webkit-text-stroke: 10px black; color: white; paint-order: stroke fill;">I'll <span id="typing-text" style="display: inline-block; font-family: 'M PLUS Rounded 1c', monospace, sans-serif; font-weight: 900; text-align: center; background-color: #CCEAFF; padding: 5px 15px; border-radius: 25px; margin: 0 5px; width: 120px; position: relative;"></span> you to take your meds.</h1>
             <a href="https://apps.apple.com/app/apple-store/id6444140899?pt=117273943&ct=web&mt=8?itsct=apps_box_badge&amp;itscg=30200"
             style="display: inline-block; overflow: hidden; border-radius: 13px; width: 193px; height: 64px; position: relative; z-index: 10;">
@@ -152,18 +152,18 @@
             <div style="padding: 20px;">
                 <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800;">
                     <img src="{{"/assets/images/bell.svg" | relative_url }}" alt="Icon 2" style="width: 30px; height: 30px;">
-                    <span>Timely Reminders</span>
+                    <span>Reminders You Won't Ignore</span>
                 </h3>
-                <p style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 500;">Receive notifications and even automated phone calls when it's time to take your meds (all reminders optional, and easily enabled/disabled).</p>
+                <p style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 500;">Stay on track with timely notifications, phone call alerts, and an eye-catching widget (all optional, and easily enabled/disabled).</p>
             </div>
 
             <!-- Grid Item 3 -->
             <div style="padding: 20px;">
                 <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800;">
                     <img src="{{"/assets/images/fire.png" | relative_url }}" alt="Icon 3" style="width: 30px; height: 30px;">
-                    <span>Build a Streak</span>
+                    <span>A Little Bit of Fun</span>
                 </h3>
-                <p style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 500;">It's important to remember to take your meds and supplements. Game mechanics like streaks and stars help you make it a habit.</p>
+                <p style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 500;">Build a streak, earn stars, and unlock surprising new experiences with your mascot — just by taking your meds on time.</p>
             </div>
 
             <!-- Grid Item 4 -->
@@ -172,7 +172,7 @@
                     <img src="{{"/assets/images/shield.svg" | relative_url }}" alt="Icon 4" style="width: 30px; height: 30px;">
                     <span>Privacy-first</span>
                 </h3>
-                <p style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 500;">Your data stays on your device, and is not shared with anyone (if you're feeling extra paranoid, use our built-in anonymous mode).</p>
+                <p style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 500;">Your data stays on your device, and is not shared with anyone (but if you're feeling extra paranoid, use our built-in anonymous mode).</p>
             </div>
         </div>
     </div>

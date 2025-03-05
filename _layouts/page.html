@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+  {%- include head.html -%}
+<head>
+    <style>
+        html, body {
+            overflow-x: hidden;
+            position: relative;
+            width: 100%;
+            -webkit-overflow-scrolling: touch;
+            margin: 0;
+            padding: 0;
+        }
+        h3 {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            font-weight: 800;
+        }
+        p {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            font-weight: 500;
+        }
+        a {
+            color: #1489E8;
+        }
+    </style>
+</head>
+<body ontouchstart="" style="overflow-x: hidden;">
+    {%- include header.html -%}
+    <div style="max-width: 1200px; margin: 0 auto; padding-left: 30px; padding-right: 30px; padding-top: 40px; padding-bottom: 40px;">       
+    {{ content }}
+    </div>
+    {%- include footer.html -%}
+</body>
+</html>
