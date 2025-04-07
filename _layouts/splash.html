@@ -26,11 +26,11 @@
 
                 // Initialize daruma animation
                 const darumaAnimation = new rive.Rive({
-                    src: '{{"/assets/animations/daruma.riv" | relative_url }}',
+                    src: '{{"/assets/animations/daruma_v2.riv" | relative_url }}',
                     canvas: document.getElementById('daruma-animation'),
-                    artboard: 'web',
+                    artboard: 'Artboard',
                     autoplay: true,
-                    stateMachines: 'State Machine 2',
+                    stateMachines: 'State Machine 1',
                     layout: new rive.Layout({
                         fit: rive.Fit.Contain,
                     }),
@@ -38,9 +38,15 @@
                         darumaAnimation.resizeDrawingSurfaceToCanvas();
                         // Add click event listener to the canvas
 
-                        const inputs = darumaAnimation.stateMachineInputs('State Machine 2');
-                        const onTapTrigger = inputs.find(i => i.name == "onTap");
-                        const isTakenTrigger = inputs.find(i => i.name == "isTaken");
+                        const inputs = darumaAnimation.stateMachineInputs('State Machine 1');
+                        const onTapTrigger = inputs.find(i => i.name == "bounce");
+                        const isTakenTrigger = inputs.find(i => i.name == "jump");
+                        const hatInput = inputs.find(i => i.name == "hat");
+                        const veggieInput = inputs.find(i => i.name == "veggie");
+
+                        // Set initial values
+                        hatInput.value = 0;
+                        veggieInput.value = 0;
 
                         document.getElementById('daruma-animation').addEventListener('click', () => {
                             onTapTrigger.fire();
@@ -130,7 +136,7 @@
     <div style="width: 100%; height: 120px; background-color: #FEB862; position: relative;"></div>
     <div style="position: absolute; width: 1000px; height: 400px; left: 50%; transform: translateX(-50%); z-index: 2; top: 150px;">
         <img src="{{"/assets/images/tree.svg" | relative_url }}" alt="Tree" style="position: absolute; left: -100px; z-index: 2; height: 300px; width: auto;">
-        <div style="position: absolute; left: 0px; top: 0px; z-index: 3; height: 400px; width: 400px;">
+        <div style="position: absolute; left: 20px; top: -30px; z-index: 3; height: 370px; width: 370px;">
             <canvas id="daruma-animation" style="width: 100%; height: 100%;"></canvas>
         </div>
         <img src="{{"/assets/images/tree.svg" | relative_url }}" alt="Tree" style="position: absolute; right: 90px; top: 50px; z-index: 2; height: 250px; width: auto;">
@@ -172,7 +178,7 @@
                     <img src="{{"/assets/images/shield.svg" | relative_url }}" alt="Icon 4" style="width: 30px; height: 30px;">
                     <span>Privacy-first</span>
                 </h3>
-                <p style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 500;">Your data stays on your device, and is not shared with anyone (but if you're feeling extra paranoid, use our built-in anonymous mode).</p>
+                <p style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 500;">Your data stays on your device, and is not shared with anyone.</p>
             </div>
         </div>
     </div>
