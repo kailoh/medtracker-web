@@ -7,7 +7,7 @@ permalink: /screenshots/
 ### Screenshots ###
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
-  {% for i in (1..18) %}
+  {% for i in (1..19) %}
     <a href="{{ '/assets/screenshots/' | append: i | append: '.png' | relative_url }}" target="_blank">
       <img src="{{ '/assets/screenshots/' | append: i | append: '.png' | relative_url }}" 
            alt="Screenshot {{i}}"
