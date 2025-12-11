@@ -1,13 +1,13 @@
-<footer style="background-color: #E89938;">
+<footer style="background-color: #6D8E9E;">
 
 <div style="text-align: left; padding: 30px 20px; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 700; max-width: 1200px; margin: 0 auto;">
     {% assign sorted_pages = site.pages | sort: 'title' %}
     {% for page in sorted_pages %}
         {% if page.title %}
-            <a href="{{ page.url | relative_url }}" style="margin: 0 10px; color: #333; text-decoration: none;">{{ page.title }}</a>
+            <a href="{{ page.url | relative_url }}" style="margin: 0 10px; color: #333333; text-decoration: none;">{{ page.title }}</a>
         {% endif %}
     {% endfor %}
-    <a href="https://apps.apple.com/us/app/pill-buddy-meds-tracker/id6742357512" style="margin: 0 10px; color: #333; text-decoration: none;">Download App</a>
+    <a href="https://apps.apple.com/us/app/pill-buddy-meds-tracker/id6742357512" style="margin: 0 10px; color: #333333; text-decoration: none;">Download App</a>
 
 </div>
 
