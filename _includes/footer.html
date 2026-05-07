@@ -3,7 +3,7 @@
 <div style="text-align: left; padding: 30px 20px; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 700; max-width: 1200px; margin: 0 auto;">
     {% assign sorted_pages = site.pages | sort: 'title' %}
     {% for page in sorted_pages %}
-        {% if page.title %}
+        {% if page.title and page.hide_in_footer != true %}
             <a href="{{ page.url | relative_url }}" style="margin: 0 10px; color: #333333; text-decoration: none;">{{ page.title }}</a>
         {% endif %}
     {% endfor %}
